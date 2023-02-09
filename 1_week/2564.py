@@ -34,10 +34,10 @@ result = 0
 # print(sec_lst[0][1])
 # print(sec_lst)
 for tc in range(T):
-    if x == sec_lst[tc][0]:
+    if x == sec_lst[tc][0] and (x==0 or x== height):
         ans = abs(sec_lst[tc][1]-y)
         # print(0)
-    elif y == sec_lst[tc][1]:
+    elif y == sec_lst[tc][1] and (y == 0 or y == length):
         ans = abs(sec_lst[tc][0]-x)
         # print(1)
     # 반대편에 있을때
