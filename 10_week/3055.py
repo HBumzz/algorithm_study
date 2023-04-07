@@ -48,14 +48,19 @@ bfs1()
 bfs2()
 print(ans, ANS)
 r_ans = 2500
-if len(ans) == len(ANS):
+if len(ans) <= len(ANS):
     for i in ans:
         for j in ANS:
             if i[0] == j[0] and i[1] == j[1]:
                 if i[2] < j[2]:
                     r_ans = min(r_ans, i[2])
-elif len(ans) < len(ANS):
-    
+else:
+    k = 0
+    while ANS:
+        a = ANS.pop()
+        for i in ans:
+            if i[0] == a[0] and i[1] == a[1]:
+
 if r_ans == 2500:
     print('KAKTUS')
 else:
