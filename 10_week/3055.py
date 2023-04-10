@@ -6,7 +6,7 @@ def bfs1(): # 도치
         ci, cj = q1.popleft()
         for di, dj in ((0,1), (1,0), (0,-1), (-1,0)):
             ni, nj = ci+di, cj+dj
-            if 0<= ni< N and 0<= nj < M and v1[ni][nj] == 0 and arr[ni][nj] != 'X':
+            if 0<= ni< N and 0<= nj < M and v1[ni][nj] == 0 and arr[ni][nj] != 'X' and arr[ni][nj] != 'D':
                 v1[ni][nj] = v1[ci][cj] +1
                 q1.append([ni,nj])
             if ni == ei and nj == ej:
@@ -46,8 +46,9 @@ for i in range(N):
             v2[Si][Sj] = 1
 bfs1()
 bfs2()
-print(ans, ANS)
 r_ans = 2500
+mn_i = 2500
+mn_j = 2500
 if len(ans) <= len(ANS):
     for i in ans:
         for j in ANS:
@@ -55,12 +56,18 @@ if len(ans) <= len(ANS):
                 if i[2] < j[2]:
                     r_ans = min(r_ans, i[2])
 else:
-    k = 0
     while ANS:
-        a = ANS.pop()
         for i in ans:
-            if i[0] == a[0] and i[1] == a[1]:
-
+            for j in ANS:
+                if i[0] == j[0] and i[1] == j[1]:
+                    if i[2] < j[2]:
+                        r_ans = min(r_ans, i[2])
+                    ans.pop(ans.index(i))
+                    ANS.pop(ANS.index(j))
+    for i in ans:
+        if i[2] < mn_i:
+            mn_i = i[2]
+    r_ans = mn_i
 if r_ans == 2500:
     print('KAKTUS')
 else:
