@@ -1,7 +1,6 @@
 from itertools import permutations
 
 def is_right(permutation):
-    flag_lst = []
     for i in range(len(sign_lst)):
         cal =  str(permutation[i]) + sign_lst[i] + str(permutation[i+1])
         if cal[1] == '>':
@@ -11,6 +10,7 @@ def is_right(permutation):
             if int(cal[0]) > int(cal[2]):
                 return False
     return permutation
+
 N = int(input())
 sign_lst = list(map(str, input().split()))
 lst_sort = [0,1,2,3,4,5,6,7,8,9]
