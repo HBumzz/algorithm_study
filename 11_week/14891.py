@@ -1,52 +1,54 @@
-def moving(num):
-    global left, right, direction
+import sys
+sys.stdin = open('input.txt', 'r')
+
+def turn(num,direction):
     if direction == 1:
         for _ in range(7):
             p = arr[num].pop(0)
-            arr[num].append(p) #방향전환
+            arr[num].append(p)
     else:
-        arr[num].append(arr[num].pop(0)) # 방향전환
+        arr[num].append(arr[num].pop(0))
+
+    return num, direction
+
 arr = [list(map(int, input())) for _ in range(4)]
 N = int(input())
 move = [list(map(int, input().split())) for _ in range(N)]
+
 for i in range(N):
     num, direction = move[i]
-    temp = []
-    left = arr[num][6]
-    right = arr[num][2]
-    temp.append([num,direction,left,right])
-    moving(num,left,right)
+    num -=1
+    flag = [0,0,0]
+    for j in range(3):
+        if arr[j][2] != arr[j+1][6]:
+            flag[j] = 1
+    turn(num, direction)
     k = 1
-    while True:
+    while True: # 왼쪽
         if num-k < 0:
             break
-        if left != arr[num-k][2]:
+        if flag[num-k] :
             if direction == 1:
-                direction = -1
+                num, direction = turn(num-k, direction-2)
             else:
-                direction = 1
-            moving(num-k,arr[num-k][6],arr[num-k][2])
-        else:
-            break
-        k +=1
-    k = 1
-    num, direction,left,right = temp[0][0], temp[0][1],temp[0][2],temp[0][3]
-    while True:
-        if num+k > 3:
-            break
-        if right != arr[num+k][6]:
-            if direction == 1:
-                direction = -1
-            else:
-                direction = 1
-            moving(num+k,arr[num+k][6],arr[num+k][2])
+                num, direction = turn(num-k, direction+2)
         else:
             break
         k+=1
-print(arr)
+    k = 1
+    while True: # 오른쪽
+        if num + k > 3:
+            break
+        if flag[num+k-1] :
+            if direction == 1:
+                num, direction = turn(num+k, direction-2)
+            else:
+                num, direction = turn(num+k, direction+2)
+        else:
+            break
+        k+=1
 ans = 0
-for i in range(4):
-    value = arr[i][0]
-    if value:
-        ans += 2**i
+for i in range(len(arr)):
+    if arr[i][0] == 1:
+        ans+=2**i
 print(ans)
