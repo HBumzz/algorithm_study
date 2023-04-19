@@ -1,11 +1,9 @@
-arr =[0,1,2,3,4,5,6,7,]
-for _ in range(7):
-    p = arr.pop(0)
-    arr.append(p)  # 방향전환
+arr = [0,1,2,3,4,5,6,7]
+arr = arr[7:] + arr[:7]
+# for num in range(7):
+#     p = arr.pop(0)
+#     arr.append(p)
 print(arr)
-# [7,0,1,2,3,4,5,6]
-arr =[0,1,2,3,4,5,6,7,]
-
-arr.append(arr.pop(0)) # 방향전환
-# [1,2,3,4,5,6,7,0]
+arr = [0,1,2,3,4,5,6,7]
+arr.append(arr.pop(0))
 print(arr)

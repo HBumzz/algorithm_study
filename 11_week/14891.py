@@ -3,9 +3,7 @@ sys.stdin = open('input.txt', 'r')
 
 def turn(num,direction):
     if direction == 1:
-        for _ in range(7):
-            p = arr[num].pop(0)
-            arr[num].append(p)
+        arr[num] = arr[num][7:] + arr[num][:7]
     else:
         arr[num].append(arr[num].pop(0))
 
@@ -18,6 +16,7 @@ move = [list(map(int, input().split())) for _ in range(N)]
 for i in range(N):
     num, direction = move[i]
     num -=1
+    temp_num, temp_direction = num, direction
     flag = [0,0,0]
     for j in range(3):
         if arr[j][2] != arr[j+1][6]:
@@ -34,7 +33,7 @@ for i in range(N):
                 num, direction = turn(num-k, direction+2)
         else:
             break
-        k+=1
+    num, direction = temp_num, temp_direction
     k = 1
     while True: # 오른쪽
         if num + k > 3:
@@ -46,7 +45,7 @@ for i in range(N):
                 num, direction = turn(num+k, direction+2)
         else:
             break
-        k+=1
+
 ans = 0
 for i in range(len(arr)):
     if arr[i][0] == 1:
